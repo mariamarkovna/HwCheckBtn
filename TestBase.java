@@ -26,7 +26,7 @@ public class TestBase {
     }
 
     public boolean isElementPresent1(By by) {// universalny metod, kot. vozvraschaen
-        // luboy element
+        // true or false depending on element presence by handling exception from the driver function
         try {
             driver.findElement(by);
             return true;
