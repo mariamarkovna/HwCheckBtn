@@ -98,5 +98,5 @@ public class HeaderTests extends TestBase {
         System.out.println("Click is done" + isElementPresent(By.xpath("//button[contains(text(),'Sign Out')]")));
     }
 
-// last line comment
+// last line comment by me
 }
