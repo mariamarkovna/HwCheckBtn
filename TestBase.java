@@ -35,7 +35,26 @@ public class TestBase {
         }
     }
 
-    @AfterMethod(enabled = true)
+    public void type(By locator, String text) {
+        click(locator);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
+    }
+
+    public void click(By locator) {
+        driver.findElement(locator).click();
+    }
+
+
+    public void pause(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @AfterMethod(enabled = false)
     public void tearDawn() {
         driver.quit();
     }
