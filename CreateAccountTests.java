@@ -37,12 +37,12 @@ public class CreateAccountTests extends TestBase{
     //test
     @Test
     public void createAccountPositiveTest(){
+        int i = (int) ((System.currentTimeMillis()/1000) % 3600);
         //assert is registration form displayed
         Assert.assertTrue(isElementPresent1(By.cssSelector(LOGIN_LOGIN_3_EHKB)));
         //fill registration form
-        type(By.cssSelector(PLACEHOLDER_EMAIL), KARL_3_GMAIL_CO);
+        fillLoginRegistrationForm("email"+ i +"@gmail.com", "Aa12345~");
         //String newuser = "a" + System.currentTimeMillis() +"@gmail.co";
-        type(By.cssSelector(PLACEHOLDER_PASSWORD), AA_12345);
         //click on Registration button
         click(By.xpath(BUTTON_CONTAINS_REGISTRATION));
         //verify Sign Out button displayed
@@ -57,8 +57,7 @@ public class CreateAccountTests extends TestBase{
         //assert is registration form displayed
         Assert.assertTrue(isElementPresent1(By.cssSelector(LOGIN_LOGIN_3_EHKB)));
         //fill registration form
-        type(By.cssSelector(PLACEHOLDER_EMAIL), KARL_3_GMAIL_CO);
-        type(By.cssSelector(PLACEHOLDER_PASSWORD), AA_12345);
+        fillLoginRegistrationForm(KARL_3_GMAIL_CO, AA_12345);
         //click on Registration button
         click(By.xpath(BUTTON_CONTAINS_REGISTRATION));
         //verify Sign Out button displayed -otobragaetsa

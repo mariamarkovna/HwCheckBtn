@@ -3,48 +3,60 @@ package lesson3.phonebook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 import static lesson3.phonebook.CreateAccountTests.*;
 
-public class AddContactTests extends TestBase{
+public class AddContactTests extends TestBase {
 
     @BeforeMethod
-    public void ensurePreconditions(){
+    public void ensurePreconditions() {
         //ubeditsa, chto Sign Out button ne otobragaetsa
-        if (!isElementPresent(By.xpath(BUTTON_CONTAINS_SIGN_OUT))) {//esli nrt knopki Sign Out
+        if (isSignOutButtonPresent()) {//esli nrt knopki Sign Out
             //Login (vojti)
-            click(By.xpath(A_CONTAINS_LOGIN));
+            clickOnLoginLink();
             type(By.cssSelector(PLACEHOLDER_EMAIL), KARL_3_GMAIL_CO);
             type(By.cssSelector(PLACEHOLDER_PASSWORD), AA_12345);
             click(By.xpath(BUTTON_CONTAINS_LOGIN));
             // nagat' na link Add
-            click(By.cssSelector("a:nth-child(5)"));
+            clickOnAddLink();
         }
     }
-    @Test
-    public void addContactPositiveTest(){
 
+    @Test
+    public void addContactPositiveTest() {
+        int i = (int) ((System.currentTimeMillis() / 1000) % 3600);//randomnoje chislo
         //Zapolnyaem formu(fill contact form)
-        type(By.cssSelector("input:nth-child(1)"),"Lena");
-        type(By.cssSelector("input:nth-child(2)"),"Ivanova");
-        type(By.cssSelector("input:nth-child(3)"),"+1234568");
-        type(By.cssSelector("input:nth-child(4)"),"lena@gmail.com");
-        type(By.cssSelector("input:nth-child(5)"),"Berlin");
-        type(By.cssSelector("input:nth-child(6)"),"nachbarn");
+        type(By.cssSelector("input:nth-child(1)"), "Lena" + i);//unikalnoe imja
+        type(By.cssSelector("input:nth-child(2)"), "Ivanova");
+        type(By.cssSelector("input:nth-child(3)"), "+1234568" + i);//unikalny telefon
+        type(By.cssSelector("input:nth-child(4)"), "lena" + i + "@gmail.com");//unikalny email
+        type(By.cssSelector("input:nth-child(5)"), "Berlin");
+        type(By.cssSelector("input:nth-child(6)"), "nachbarn");
         //click on the button SAVE
         click(By.cssSelector(".add_form__2rsm2 button"));
-        //click(By.cssSelector(".add_form__2rsm2 button"));
+        //clickWithAction(By.cssSelector(".add_form__2rsm2 button")); sdvigaet ekran esli on ne pomeschatsa v okne
         //assert contact is created
+        Assert.assertTrue(isContactCreated("Lena" + i)); //проверять бкдет мктод  private boolean isContactCreated(String text)
 
     }
-    public void clickWithAction(By locator){
-        Actions actions = new Actions(driver);
-        WebElement element = driver.findElement(locator);
-        actions.moveToElement(element).perform();//idet k nugnomy elementu
-        element.click();
+
+    private boolean isContactCreated(String text) {
+        List<WebElement> contacts = driver.findElements(By.xpath("//h2"));
+        for (WebElement element1 : contacts) {
+            if (element1.getText().contains(text)) {
+                return true;
+            }
+        }
+        return false;
     }
+
+
+
 
 
 }

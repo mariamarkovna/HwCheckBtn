@@ -24,7 +24,7 @@ public class LoginTests extends TestBase {
         Assert.assertTrue(isElementPresent1(By.cssSelector(LOGIN_LOGIN_3_EHKB)));
         //zapolnjaem polja LOGIN
         type(By.cssSelector(PLACEHOLDER_EMAIL), KARL_3_GMAIL_CO);
-        type(By.cssSelector(PLACEHOLDER_PASSWORD), AA_12345);
+        type(locator(), AA_12345);
         click(By.xpath(BUTTON_CONTAINS_LOGIN));
         //podtvergdaem, chto polzovatel zaloginen
         pause(1000);
