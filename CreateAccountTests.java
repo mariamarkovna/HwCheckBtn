@@ -62,7 +62,7 @@ public class CreateAccountTests extends TestBase{
         click(By.xpath(BUTTON_CONTAINS_REGISTRATION));
         //verify Sign Out button displayed -otobragaetsa
         Assert.assertTrue(isAlertPresent());
-        Assert.assertTrue(isElementPresent(By.xpath(DIV_CONTAINS_REGISTRATION_FAILED_WITH_CODE_400)));
+        Assert.assertFalse(isElementPresent(By.xpath(DIV_CONTAINS_REGISTRATION_FAILED_WITH_CODE_400)));
     }
 
     public boolean isAlertPresent() {
